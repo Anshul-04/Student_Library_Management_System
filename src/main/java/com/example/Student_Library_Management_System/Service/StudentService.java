@@ -36,4 +36,27 @@ public class StudentService {
         return "Student and Card added";
 
     }
+
+    public  String findNameByEmail(String email){
+      Student student = studentRepository.findByEmail(email);
+      return student.getName();
+    }
+
+    public String updateMobileNo(Student newStudent){
+
+        //First we will try to Fetch Original Student
+        Student originalStudent = studentRepository.findById(newStudent.getId()).get();
+
+        //We will keep the other properties as it is : and only change the required parameters
+        originalStudent.setMobileNumber(newStudent.getMobileNumber());
+
+        studentRepository.save(originalStudent);
+
+        return "Mobile Number is Updated.";
+    }
 }
+/*
+    1. Existing Functions with no definition.
+    2. Existing function + with defining.
+    3. New Fuction
+ */

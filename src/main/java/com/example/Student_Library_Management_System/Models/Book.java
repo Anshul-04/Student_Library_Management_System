@@ -3,6 +3,7 @@ package com.example.Student_Library_Management_System.Models;
 import com.example.Student_Library_Management_System.ENUMS.Genre;
 import jakarta.persistence.*;
 
+
 @Entity
 @Table(name="book")
 public class Book {
