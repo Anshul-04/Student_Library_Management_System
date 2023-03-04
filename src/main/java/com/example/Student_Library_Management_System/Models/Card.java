@@ -13,9 +13,11 @@ import java.util.List;
 @Table(name="card")
 public class Card {
 
-    // Plan is to save this card in Db.
-    // Rule 1 : Before saving I have to set its attributes
-    // Rule 2 : Never forget Rule No1.
+    /*
+        Plan is to save this card in DB.
+        Rule 1 : Before saving I have to set its attributes
+        Rule 2 : Never forget Rule No1.
+    */
 
 
     @Id
@@ -29,25 +31,29 @@ public class Card {
     private Date updatedOn;   //Its auto generated
 
     @Enumerated(value = EnumType.STRING)
-    private CardStatus cardStatus;  //SET this attribute by ourself
+    private CardStatus cardStatus;  //SET this attribute by ourselves
 
-
-    //Card is the child wrt Student ,so the mapping for that is below(unidirectional)
+    // # DOING "UNI-DIRECTIONAL" MAPPING
+    // Card is the child wrt Student
     @OneToOne
     @JoinColumn
-    private Student studentVariableName;  //This variable is used in the parent class,
-    // while doing the bidirectional mapping
+    private Student studentVariableName;  // This variable is used in the parent class,
+                                         // while doing the bidirectional mapping
 
 
-    //Now, Card is the parent wrt Book.So the mapping for that is below(Bidirectional - [ in Card->Book perspective] )
+    // # DOING "BI-DIRECTIONAL" MAPPING NOW
+    // Card is the parent wrt Book.So the mapping for that is below [ in Card->Book perspective]
     @OneToMany(mappedBy = "card",cascade = CascadeType.ALL)
-    private List<Book> booksIssued;
+    private List<Book> booksIssued = new ArrayList<>();
+
+    // Card is also parent wrt Transcations
+    @OneToMany(mappedBy = "card",cascade = CascadeType.ALL)
+    private List<Transcations> transcationsList = new ArrayList<>();
 
 
 
     //Constructor
     public Card() {
-        booksIssued = new ArrayList<>();
     }
 
 
@@ -90,5 +96,21 @@ public class Card {
 
     public void setStudentVariableName(Student studentVariableName) {
         this.studentVariableName = studentVariableName;
+    }
+
+    public List<Book> getBooksIssued() {
+        return booksIssued;
+    }
+
+    public void setBooksIssued(List<Book> booksIssued) {
+        this.booksIssued = booksIssued;
+    }
+
+    public List<Transcations> getTranscationsList() {
+        return transcationsList;
+    }
+
+    public void setTranscationsList(List<Transcations> transcationsList) {
+        this.transcationsList = transcationsList;
     }
 }

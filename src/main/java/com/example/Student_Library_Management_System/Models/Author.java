@@ -17,7 +17,7 @@ public class Author {
     private String country;
     private double rating;
 
-
+    // # DOING "BI-DIRECTIONAL" MAPPING
     // Author is parent wrt to Book(child).
     // This annotation I am writing in the parent class : Part of bidirectional mapping
     @OneToMany(mappedBy = "author",cascade = CascadeType.ALL)

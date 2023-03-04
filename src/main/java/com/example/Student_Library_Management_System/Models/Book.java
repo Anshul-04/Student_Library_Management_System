@@ -3,6 +3,9 @@ package com.example.Student_Library_Management_System.Models;
 import com.example.Student_Library_Management_System.ENUMS.Genre;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Table(name="book")
@@ -18,9 +21,10 @@ public class Book {
 
     private boolean issued;
 
-    //Book is child wrt to author
-    //Setting here the foreign key : Standard 3 steps
 
+    //    #   DOING UNI-DIRECTIONAL MAPPING
+    //        Book is child wrt to author
+    //        Setting here the foreign key : Standard 3 steps
     @ManyToOne
     @JoinColumn  // Add an extra attribute of authorId (parent table PK) for the foreign key of child table
     private Author author;  // This is the parent entity we are connecting with ,this variable is used in the parent class(Author),
@@ -30,6 +34,14 @@ public class Book {
     @ManyToOne
     @JoinColumn
     private Card card;
+
+
+    //  ## DOING BI-DIRECTIONAL MAPPING
+    //     Book is parent wrt Transcation
+    @OneToMany(mappedBy = "book",cascade = CascadeType.ALL)
+    private List<Transcations> transcationsList = new ArrayList<>();  // One book can have many Txn
+
+
 
     public Book() {
     }
@@ -88,5 +100,13 @@ public class Book {
 
     public void setIssued(boolean issued) {
         this.issued = issued;
+    }
+
+    public List<Transcations> getTranscationsList() {
+        return transcationsList;
+    }
+
+    public void setTranscationsList(List<Transcations> transcationsList) {
+        this.transcationsList = transcationsList;
     }
 }

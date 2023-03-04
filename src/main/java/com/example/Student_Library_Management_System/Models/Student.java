@@ -17,7 +17,7 @@ public class Student {
     private String country;
 
 
-    //Plain syntax for Bidirectional mapping
+    // # Plain syntax for  DOING "BI-DIRECTIONAL" MAPPING
 
     //Name of variable of the Parent Entity that you have written in child class foreign key attribute.
     @OneToOne(mappedBy = "studentVariableName",cascade = CascadeType.ALL)
